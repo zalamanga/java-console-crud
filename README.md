@@ -70,6 +70,8 @@ Program membaca input UTF-8. Di terminal Windows lama, jalankan `chcp 65001` seb
 
 ## Susunan kode
 
+[Alur kode](docs/CODE_FLOW.md) menjelaskan perjalanan input menu sampai query, validasi, akhir input dan pemulihan kesalahan.
+
 ```text
 src/main/java/id/javacrud/
   Main.java                 Entry point dan environment
