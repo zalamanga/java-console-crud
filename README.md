@@ -4,6 +4,12 @@ Latihan **Java 17 dan JDBC/MySQL** untuk menambah dan membaca data pengguna, men
 
 Ini latihan CRUD dengan data contoh. **Tidak ada sistem login**; kolom role hanya nilai data. Password contoh disimpan sebagai hash dan tidak ditampilkan pada daftar. Operator program memiliki hak sesuai akun database yang dipakainya.
 
+## Contoh keluaran terminal
+
+![Menu dan daftar satu pengguna contoh pada Java Console CRUD](docs/images/terminal-output.png)
+
+Transkrip hasil eksekusi `ConsoleApp` yang dirender menjadi gambar. Contoh ini memakai satu kontak sintetis pada fixture H2 terisolasi, seperti pengujian repository; aplikasi mandiri tetap memakai MySQL sesuai langkah di bawah. Masukan `1` menampilkan daftar dan `0` keluar. Masukan melalui stdin tidak ditampilkan ulang dalam gambar.
+
 ## Jalankan dengan Docker
 
 Siapkan Docker Desktop dengan Linux containers. Di PowerShell:
