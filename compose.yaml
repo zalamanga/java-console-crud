@@ -1,0 +1,32 @@
+services:
+  db:
+    image: mysql:8.4
+    command: ['--performance-schema=OFF', '--max-connections=20', '--innodb-buffer-pool-size=64M']
+    environment:
+      MYSQL_DATABASE: console_crud_demo
+      MYSQL_USER: console_crud
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    volumes:
+      - database:/var/lib/mysql
+      - ./database/001-schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+    healthcheck:
+      test: [CMD-SHELL, 'mysqladmin ping --protocol=tcp -h 127.0.0.1 -uroot -p"$$MYSQL_ROOT_PASSWORD" --silent']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    mem_limit: 512m
+  app:
+    build: .
+    environment:
+      DB_URL: jdbc:mysql://db:3306/console_crud_demo?useSSL=false&allowPublicKeyRetrieval=true&connectionTimeZone=UTC&connectTimeout=3000&socketTimeout=5000
+      DB_USER: console_crud
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    stdin_open: true
+    tty: true
+    depends_on:
+      db:
+        condition: service_healthy
+    mem_limit: 256m
+volumes:
+  database:
